@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @font-face {
   font-family: sitarskejFont;
   src: url(assets/stalker1.ttf);
@@ -114,3 +115,121 @@ body {
     float: right;
   }
 }
+=======
+@font-face {
+  font-family: sitarskejFont;
+  src: url(assets/stalker1.ttf);
+}
+
+body {
+  background-color: #101010;
+  color: white;
+  font-family: sitarskejFont;
+  padding: 2em;
+}
+
+.left {
+  display: flex;
+  position: relative;
+  align-items: center;
+  flex-direction: column;
+  width: 35%;
+  height: 90vh;
+  float: left;
+
+  .numbers {
+    text-align: center;
+  }
+
+  .networker {
+    width: 300px;
+    position: relative;
+    top: 45%;
+    cursor: pointer;
+    -webkit-user-drag: none;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+  }
+}
+
+.right {
+  float: right;
+  padding: 4em;
+  position: relative;
+  width: 65%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+
+  .device {
+    width: 80%;
+    height: 10%;
+    position: relative;
+    background-color: #333;
+    cursor: pointer;
+
+    .img-wrap,
+    .device-stats,
+    .price-wrap {
+      display: inline-block;
+      height: 100%;
+    }
+    border-radius: 100vh;
+    -webkit-border-radius: 100vh;
+    -moz-border-radius: 100vh;
+    -ms-border-radius: 100vh;
+    -o-border-radius: 100vh;
+  }
+
+  .img-wrap {
+    float: left;
+    position: relative;
+    width: 20%;
+
+    img {
+      position: relative;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      -webkit-transform: translate(-50%, -50%);
+      -moz-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      -o-transform: translate(-50%, -50%);
+    }
+  }
+
+  .price-wrap {
+    float: left;
+    position: relative;
+    width: 40%;
+
+    h3 {
+      position: relative;
+      text-align: center;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      -webkit-transform: translate(-50%, -50%);
+      -moz-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      -o-transform: translate(-50%, -50%);
+    }
+  }
+
+  .device-stats {
+    .stats {
+      display: grid;
+      height: 100%;
+      align-content: center;
+    }
+  }
+
+  .price-wrap {
+    float: right;
+  }
+}
+>>>>>>> 88a770f6410e1e036d88f2a642f804ac11ead80c
