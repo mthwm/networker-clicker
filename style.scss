@@ -75,6 +75,11 @@ body {
     -moz-border-radius: 100vh;
     -ms-border-radius: 100vh;
     -o-border-radius: 100vh;
+    transition: all 0.125s ease-in-out;
+    -webkit-transition: all 0.125s ease-in-out;
+    -moz-transition: all 0.125s ease-in-out;
+    -ms-transition: all 0.125s ease-in-out;
+    -o-transition: all 0.125s ease-in-out;
   }
 
   .unavailable {

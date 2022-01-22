@@ -50,7 +50,8 @@ function gameLoop() {
         document.querySelector(".price").innerHTML = pcCost + " packets";
       }
     };
-  } else {
+  }
+  if (packetsCount < pcCost) {
     let device = document.querySelector("#pc");
     device.className = "device unavailable";
   }
