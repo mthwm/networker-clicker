@@ -16,7 +16,13 @@
         <h1 class="packets">0 packets</h1>
         <h2 class="packetsPerSecond">0/s</h2>
       </div>
-      <img src="assets/networker.png" alt="" class="networker" />
+      <img
+        src="assets/networker.png"
+        alt=""
+        class="networker"
+        id="networker"
+        onclick="addPackets(1)"
+      />
     </div>
     <div class="right">
       <div class="device unavailable" id="pc">
@@ -31,6 +37,20 @@
         </div>
         <div class="price-wrap">
           <h3 class="price">10 packets</h3>
+        </div>
+      </div>
+      <div class="device unavailable" id="switch">
+        <div class="img-wrap">
+          <img src="assets/switch.png" alt="" class="device-image" />
+        </div>
+        <div class="device-stats">
+          <div class="stats">
+            <h3>switch</h3>
+            <h4>+1 pps</h4>
+          </div>
+        </div>
+        <div class="price-wrap">
+          <h3 class="price">100 packets</h3>
         </div>
       </div>
     </div>
