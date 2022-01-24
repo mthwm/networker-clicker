@@ -8,6 +8,7 @@ body {
   color: white;
   font-family: sitarskejFont;
   padding: 2em;
+  overflow: hidden;
 }
 
 .left {
