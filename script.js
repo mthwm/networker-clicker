@@ -1,3 +1,5 @@
+// TODO - upgrades
+
 let packetsCount = 0;
 packetsPerClick = 1;
 let pcCost = 10;
@@ -9,6 +11,10 @@ let routerCost = 500;
 let routerCount = 0;
 let l3switchCost = 1500;
 let l3switchCount = 0;
+let serverCost = 5000;
+let serverCount = 0;
+let mikrotikCost = 999999999;
+let mikrotikCount = 0;
 let packetsCountPlaceholder = 0.0;
 let packetsCountFormatted = "";
 
@@ -17,8 +23,6 @@ window.onload = function () {
     return false;
   };
 };
-
-// TODO - upgrades
 
 function updatePackets(amount) {
   let packetsDisplay = document.querySelector(".packets");
@@ -143,6 +147,40 @@ function gameLoop() {
     };
   }
 
+  if (packetsCount >= serverCost) {
+    let device = document.querySelector("#server");
+    device.className = "device available";
+
+    device.onclick = () => {
+      if (serverCost <= packetsCount) {
+        packetsCount -= serverCost;
+        updatePackets(packetsCountFormatted);
+        serverCount++;
+        serverCost *= 1.3;
+        serverCost = serverCost.toFixed(0);
+        document.querySelector("#server-price").innerHTML =
+          serverCost + " packets";
+      }
+    };
+  }
+
+  if (packetsCount >= mikrotikCost) {
+    let device = document.querySelector("#mikrotik");
+    device.className = "device available";
+
+    device.onclick = () => {
+      if (mikrotikCost <= packetsCount) {
+        packetsCount -= mikrotikCost;
+        updatePackets(packetsCountFormatted);
+        mikrotikCount++;
+        mikrotikCost *= 1.3;
+        mikrotikCost = mikrotikCost.toFixed(0);
+        document.querySelector("#mikrotik-price").innerHTML =
+          mikrotikCost + " packets";
+      }
+    };
+  }
+
   if (packetsCount < pcCost) {
     let device = document.querySelector("#pc");
     device.className = "device unavailable";
@@ -159,18 +197,32 @@ function gameLoop() {
     let device = document.querySelector("#l3switch");
     device.className = "device unavailable";
   }
+  if (packetsCount < serverCost) {
+    let device = document.querySelector("#server");
+    device.className = "device unavailable";
+  }
+  if (packetsCount < mikrotikCost) {
+    let device = document.querySelector("#mikrotik");
+    device.className = "device unavailable";
+  }
 
   window.requestAnimationFrame(gameLoop);
 }
 
 function packetsPerSecondLoop() {
   setTimeout(() => {
-    let l3switchPerSecond = l3switchCount * 100;
     let routerPerSecond = routerCount * 10;
+    let l3switchPerSecond = l3switchCount * 100;
+    let serverPerSecond = serverCount * 1000;
+    let mikrotikPerSecond = mikrotikCount * 9999999;
     packetsCount += switchCount + routerPerSecond;
     packetsCount += l3switchPerSecond;
+    packetsCount += serverPerSecond;
+    packetsCount += mikrotikPerSecond;
     packetsPerSecond = switchCount + routerPerSecond;
     packetsPerSecond += l3switchPerSecond;
+    packetsPerSecond += serverPerSecond;
+    packetsPerSecond += mikrotikPerSecond;
     document.querySelector(".packetsPerSecond").innerHTML =
       packetsPerSecond + "/s";
     fetch("https://api.countapi.xyz/update/Super_Stranka/ZULUL/?amount=1");
