@@ -9,11 +9,14 @@ let routerCost = 500;
 let routerCount = 0;
 let l3switchCost = 1500;
 let l3switchCount = 0;
+let packetsCountPlaceholder = 0.0;
+let packetsCountFormatted = "";
 
 // TODO - upgrades
 
 function updatePackets(amount) {
   let packetsDisplay = document.querySelector(".packets");
+
   packetsDisplay.innerHTML = amount + " packets";
 }
 window.requestAnimationFrame(gameLoop);
@@ -23,9 +26,9 @@ function addPackets() {
     document
       .querySelector(".left")
       .removeChild(document.querySelector(".tooltip"));
-  }, 20);
+  }, 50);
   packetsCount += packetsPerClick;
-  updatePackets(packetsCount);
+  updatePackets(packetsCountFormatted);
 
   const parent = document.querySelector(".left");
   const tooltip = document.createElement("div");
@@ -42,6 +45,22 @@ function addPackets() {
 }
 
 function gameLoop() {
+  if (packetsCount < 1000) {
+    packetsCountFormatted = packetsCount;
+  }
+
+  if (packetsCount >= 1000) {
+    packetsCountPlaceholder = packetsCount / 1000;
+
+    packetsCountFormatted = packetsCountPlaceholder.toFixed(1) + "k";
+  }
+
+  if (packetsCount >= 1000000) {
+    packetsCountPlaceholder = packetsCount / 1000000;
+
+    packetsCountFormatted = packetsCountPlaceholder.toFixed(1) + "m";
+  }
+
   if (packetsCount >= pcCost) {
     let device = document.querySelector("#pc");
     device.className = "device available";
@@ -49,7 +68,7 @@ function gameLoop() {
     device.onclick = () => {
       if (pcCost <= packetsCount) {
         packetsCount -= pcCost;
-        updatePackets(packetsCount);
+        updatePackets(packetsCountFormatted);
         packetsPerClick = pcCount + 1;
         pcCount++;
         pcCost *= 1.3;
@@ -66,7 +85,7 @@ function gameLoop() {
     device.onclick = () => {
       if (switchCost <= packetsCount) {
         packetsCount -= switchCost;
-        updatePackets(packetsCount);
+        updatePackets(packetsCountFormatted);
         switchCount++;
         switchCost *= 1.3;
         switchCost = switchCost.toFixed(0);
@@ -83,7 +102,7 @@ function gameLoop() {
     device.onclick = () => {
       if (routerCost <= packetsCount) {
         packetsCount -= routerCost;
-        updatePackets(packetsCount);
+        updatePackets(packetsCountFormatted);
         routerCount++;
         routerCost *= 1.3;
         routerCost = routerCost.toFixed(0);
@@ -100,11 +119,11 @@ function gameLoop() {
     device.onclick = () => {
       if (l3switchCost <= packetsCount) {
         packetsCount -= l3switchCost;
-        updatePackets(packetsCount);
-        switchCount++;
+        updatePackets(packetsCountFormatted);
+        l3switchCount++;
         l3switchCost *= 1.3;
         l3switchCost = l3switchCost.toFixed(0);
-        document.querySelector("#switch-price").innerHTML =
+        document.querySelector("#l3switch-price").innerHTML =
           l3switchCost + " packets";
       }
     };
@@ -132,11 +151,15 @@ function gameLoop() {
 
 function packetsPerSecondLoop() {
   setTimeout(() => {
-    packetsCount += switchCount + routerCount * 10 + l3switchCount * 100;
-    packetsPerSecond = switchCount + routerCount * 10 + l3switchCount * 100;
+    let l3switchPerSecond = l3switchCount * 100;
+    let routerPerSecond = routerCount * 10;
+    packetsCount += switchCount + routerPerSecond;
+    packetsCount += l3switchPerSecond;
+    packetsPerSecond = switchCount + routerPerSecond;
+    packetsPerSecond += l3switchPerSecond;
     document.querySelector(".packetsPerSecond").innerHTML =
       packetsPerSecond + "/s";
-    updatePackets(packetsCount);
+    updatePackets(packetsCountFormatted);
     packetsPerSecondLoop();
   }, 1000);
 }
