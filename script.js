@@ -12,6 +12,12 @@ let l3switchCount = 0;
 let packetsCountPlaceholder = 0.0;
 let packetsCountFormatted = "";
 
+window.onload = function () {
+  document.body.onselectstart = function () {
+    return false;
+  };
+};
+
 // TODO - upgrades
 
 function updatePackets(amount) {
@@ -51,14 +57,22 @@ function gameLoop() {
 
   if (packetsCount >= 1000) {
     packetsCountPlaceholder = packetsCount / 1000;
-
     packetsCountFormatted = packetsCountPlaceholder.toFixed(1) + "k";
   }
 
   if (packetsCount >= 1000000) {
     packetsCountPlaceholder = packetsCount / 1000000;
-
     packetsCountFormatted = packetsCountPlaceholder.toFixed(1) + "m";
+  }
+
+  if (packetsCount >= 1000000000) {
+    packetsCountPlaceholder = packetsCount / 1000000000;
+    packetsCountFormatted = packetsCountPlaceholder.toFixed(1) + "b";
+  }
+
+  if (packetsCount >= 1000000000000) {
+    packetsCountPlaceholder = packetsCount / 1000000000000;
+    packetsCountFormatted = packetsCountPlaceholder.toFixed(1) + "t";
   }
 
   if (packetsCount >= pcCost) {
@@ -159,6 +173,7 @@ function packetsPerSecondLoop() {
     packetsPerSecond += l3switchPerSecond;
     document.querySelector(".packetsPerSecond").innerHTML =
       packetsPerSecond + "/s";
+    fetch("https://api.countapi.xyz/update/Super_Stranka/ZULUL/?amount=1");
     updatePackets(packetsCountFormatted);
     packetsPerSecondLoop();
   }, 1000);
